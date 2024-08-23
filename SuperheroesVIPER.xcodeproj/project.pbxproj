@@ -17,6 +17,8 @@
 		84EEC9C32C75C84100057206 /* SuperheroesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEC9C22C75C84100057206 /* SuperheroesPresenter.swift */; };
 		84EEC9C52C75E5DD00057206 /* SuperheroesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEC9C42C75E5DD00057206 /* SuperheroesRouter.swift */; };
 		84EEC9C72C75E8B700057206 /* SuperheroesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEC9C62C75E8B700057206 /* SuperheroesViewController.swift */; };
+		84EEC9C92C760B0A00057206 /* HeroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEC9C82C760B0A00057206 /* HeroTableViewCell.swift */; };
+		84EEC9CB2C760B8800057206 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEC9CA2C760B8800057206 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		84EEC9C22C75C84100057206 /* SuperheroesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperheroesPresenter.swift; sourceTree = "<group>"; };
 		84EEC9C42C75E5DD00057206 /* SuperheroesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperheroesRouter.swift; sourceTree = "<group>"; };
 		84EEC9C62C75E8B700057206 /* SuperheroesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperheroesViewController.swift; sourceTree = "<group>"; };
+		84EEC9C82C760B0A00057206 /* HeroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroTableViewCell.swift; sourceTree = "<group>"; };
+		84EEC9CA2C760B8800057206 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,8 @@
 				84EEC9BB2C74C76B00057206 /* SuperheroesEntity.swift */,
 				84EEC9C42C75E5DD00057206 /* SuperheroesRouter.swift */,
 				84EEC9C62C75E8B700057206 /* SuperheroesViewController.swift */,
+				84EEC9C82C760B0A00057206 /* HeroTableViewCell.swift */,
+				84EEC9CA2C760B8800057206 /* DetailViewController.swift */,
 			);
 			path = SuperheroesVIPER;
 			sourceTree = "<group>";
@@ -161,8 +167,10 @@
 				84EEC9C12C75037400057206 /* SuperheroesInteractor.swift in Sources */,
 				84EEC9A52C74B4F700057206 /* ViewController.swift in Sources */,
 				84EEC9C32C75C84100057206 /* SuperheroesPresenter.swift in Sources */,
+				84EEC9C92C760B0A00057206 /* HeroTableViewCell.swift in Sources */,
 				84EEC9A12C74B4F700057206 /* AppDelegate.swift in Sources */,
 				84EEC9A32C74B4F700057206 /* SceneDelegate.swift in Sources */,
+				84EEC9CB2C760B8800057206 /* DetailViewController.swift in Sources */,
 				84EEC9C72C75E8B700057206 /* SuperheroesViewController.swift in Sources */,
 				84EEC9BC2C74C76B00057206 /* SuperheroesEntity.swift in Sources */,
 			);
