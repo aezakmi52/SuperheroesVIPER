@@ -10,7 +10,7 @@ import UIKit
 
 protocol SuperheroesRouterProtocol: AnyObject {
     static func createModule() -> UIViewController
-    func navigateToSuperheroDetail(with hero: HeroModel)
+    func navigateToSuperheroDetail(with hero: HeroModel, _ image: UIImage)
 }
 
 class SuperheroesRouter: SuperheroesRouterProtocol {
@@ -32,8 +32,16 @@ class SuperheroesRouter: SuperheroesRouterProtocol {
         return viewController
     }
     
-    func navigateToSuperheroDetail(with hero: HeroModel) {
-        let detailViewController = SuperheroDetailRouter.createModule(with: hero)
+    func navigateToSuperheroDetail(with hero: HeroModel, _ image: UIImage) {
+        let detailViewController = DetailViewController()
+        
+        if let superheroesViewController = viewController as? SuperheroesViewController {
+            detailViewController.presenter = superheroesViewController.presenter
+            (superheroesViewController.presenter as? SuperheroesPresenter)?.detailView = detailViewController
+        }
+                
+        detailViewController.hero = hero
+        detailViewController.image = image
         viewController?.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol SuperheroesPresenterProtocol: AnyObject {
     func viewDidLoad()
-    func didSelectHero(_ hero: HeroModel)
+    func didSelectHero(_ hero: HeroModel, _ image: UIImage)
     func didToggleFavorite(for hero: HeroModel)
 }
 
@@ -22,6 +22,8 @@ protocol SuperheroesInteractorOutputProtocol: AnyObject {
 class SuperheroesPresenter: SuperheroesPresenterProtocol {
     
     var view: SuperheroesViewProtocol?
+    var detailView: SuperheroDetailViewProtocol?
+    
     var interactor: SuperheroesInteractorInputProtocol?
     var router: SuperheroesRouterProtocol?
     
@@ -30,16 +32,13 @@ class SuperheroesPresenter: SuperheroesPresenterProtocol {
         interactor?.createIdImageDict()
     }
     
-    func didSelectHero(_ hero: HeroModel) {
-        router?.navigateToSuperheroDetail(with: hero)
+    func didSelectHero(_ hero: HeroModel, _ image: UIImage) {
+        router?.navigateToSuperheroDetail(with: hero, image)
+        print("hero is selected")
     }
     
     func didToggleFavorite(for hero: HeroModel) {
         interactor?.toggleFavorite(id: hero.id, isFavorite: !hero.isFavorite)
-    }
-    
-    func getHeroById(id: Int) {
-        interactor?.getHeroById(id: id)
     }
 }
 

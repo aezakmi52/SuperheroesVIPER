@@ -17,24 +17,17 @@ protocol SuperheroDetailViewProtocol: AnyObject {
 class DetailViewController: UIViewController, SuperheroDetailViewProtocol {
     
     // MARK: - Properties
-    var presenter: SuperheroDetailPresenterProtocol?
     
-    var hero: HeroModel
+    var presenter: SuperheroesPresenterProtocol?
+    
+    var hero: HeroModel!
+    var image: UIImage?
     
     let heroImage = UIImageView()
     let name = UILabel()
     let statsStack = UIStackView()
     let valueStack = UIStackView()
     let favoriteButton = UIButton()
-    
-    init(hero: HeroModel) {
-        self.hero = hero
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - Lifecycle Methods
     
@@ -48,6 +41,7 @@ class DetailViewController: UIViewController, SuperheroDetailViewProtocol {
     
     func showSuperheroDetail(_ hero: HeroModel) {
         self.hero = hero
+        updateUI()
     }
     
     func setupView() {
@@ -64,6 +58,8 @@ class DetailViewController: UIViewController, SuperheroDetailViewProtocol {
         name.text = hero.name.capitalized
         name.textColor = .white
         name.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+        
+        heroImage.image = image
         
         let statsArray = ["INTELLIGENCE", "POWER", "SPEED", "ENDURANCE", "REACTION", "PROTECTION"]
         
@@ -136,38 +132,5 @@ class DetailViewController: UIViewController, SuperheroDetailViewProtocol {
         favoriteButton.setTitle(hero.isFavorite ? "In favorites" : "Add to favorites", for: .normal)
         favoriteButton.setTitleColor(hero.isFavorite ? .black : UIColor(red: 255/255, green: 159/255, blue: 10/255, alpha: 1), for: .normal)
         favoriteButton.backgroundColor = (hero.isFavorite ? UIColor(red: 255/255, green: 159/255, blue: 10/255, alpha: 1) : .black)
-    }
-}
-
-protocol SuperheroDetailPresenterProtocol: AnyObject {
-    func viewDidLoad()
-}
-
-class SuperheroDetailPresenter: SuperheroDetailPresenterProtocol {
-    var view: SuperheroDetailViewProtocol?
-    private let hero: HeroModel
-    
-    init(hero: HeroModel) {
-        self.hero = hero
-    }
-    
-    func viewDidLoad() {
-        view?.showSuperheroDetail(hero)
-    }
-}
-
-protocol SuperheroDetailRouterProtocol: AnyObject {
-    static func createModule(with hero: HeroModel) -> UIViewController
-}
-
-class SuperheroDetailRouter: SuperheroDetailRouterProtocol {
-    static func createModule(with hero: HeroModel) -> UIViewController {
-        let viewController = DetailViewController(hero: hero)
-        let presenter = SuperheroDetailPresenter(hero: hero)
-
-        viewController.presenter = presenter
-        presenter.view = viewController
-
-        return viewController
     }
 }
