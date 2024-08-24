@@ -34,7 +34,6 @@ class HeroTableViewCell: UITableViewCell {
     
     func setHero(_ hero: HeroModel) {
         self.hero = hero
-        print("hero setted")
     }
     
     // MARK: - Initializers

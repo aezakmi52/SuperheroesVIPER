@@ -17,6 +17,7 @@ protocol SuperheroesPresenterProtocol: AnyObject {
 protocol SuperheroesInteractorOutputProtocol: AnyObject {
     func fetchHeroes(_ heroes: [HeroModel])
     func fetchIdImageDict(_ images: [Int: UIImage])
+    func fetchHero(_ hero: HeroModel)
 }
 
 class SuperheroesPresenter: SuperheroesPresenterProtocol {
@@ -34,7 +35,6 @@ class SuperheroesPresenter: SuperheroesPresenterProtocol {
     
     func didSelectHero(_ hero: HeroModel, _ image: UIImage) {
         router?.navigateToSuperheroDetail(with: hero, image)
-        print("hero is selected")
     }
     
     func didToggleFavorite(for hero: HeroModel) {
@@ -49,6 +49,10 @@ extension SuperheroesPresenter: SuperheroesInteractorOutputProtocol {
     
     func fetchIdImageDict(_ images: [Int: UIImage]) {
         view?.getImages(images)
+    }
+    
+    func fetchHero(_ hero: HeroModel) {
+        detailView?.showSuperheroDetail(hero)
     }
 }
 

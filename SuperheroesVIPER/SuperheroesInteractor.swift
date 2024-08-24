@@ -50,6 +50,7 @@ final class SuperheroesInteractor: SuperheroesInteractorInputProtocol {
             }
         }
         presenter?.fetchHeroes(heroes)
+        presenter?.fetchHero(heroes.first { $0.id == id }!)
     }
     
     func createIdImageDict() {

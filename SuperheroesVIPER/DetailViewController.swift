@@ -20,7 +20,11 @@ class DetailViewController: UIViewController, SuperheroDetailViewProtocol {
     
     var presenter: SuperheroesPresenterProtocol?
     
-    var hero: HeroModel!
+    var hero: HeroModel! {
+        didSet {
+            updateUI()
+        }
+    }
     var image: UIImage?
     
     let heroImage = UIImageView()
@@ -93,6 +97,7 @@ class DetailViewController: UIViewController, SuperheroDetailViewProtocol {
         favoriteButton.layer.cornerRadius = 16
         favoriteButton.layer.borderWidth = 2
         favoriteButton.layer.borderColor = CGColor(red: 255/255, green: 159/255, blue: 10/255, alpha: 1)
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         
         heroImage.translatesAutoresizingMaskIntoConstraints = false
         name.translatesAutoresizingMaskIntoConstraints = false
@@ -132,5 +137,9 @@ class DetailViewController: UIViewController, SuperheroDetailViewProtocol {
         favoriteButton.setTitle(hero.isFavorite ? "In favorites" : "Add to favorites", for: .normal)
         favoriteButton.setTitleColor(hero.isFavorite ? .black : UIColor(red: 255/255, green: 159/255, blue: 10/255, alpha: 1), for: .normal)
         favoriteButton.backgroundColor = (hero.isFavorite ? UIColor(red: 255/255, green: 159/255, blue: 10/255, alpha: 1) : .black)
+    }
+    
+    @objc func favoriteButtonTapped() {
+        presenter?.didToggleFavorite(for: hero)
     }
 }
