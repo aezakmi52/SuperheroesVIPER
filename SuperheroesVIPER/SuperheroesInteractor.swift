@@ -22,17 +22,34 @@ final class SuperheroesInteractor: SuperheroesInteractorInputProtocol {
     var presenter: SuperheroesInteractorOutputProtocol?
     
     func fetchHeroes() {
-        if heroes.isEmpty {
-            if let url = Bundle.main.url(forResource: "Hero", withExtension: "json") {
-                do {
-                    let data = try Data(contentsOf: url)
-                    heroes = try JSONDecoder().decode([HeroModel].self, from: data)
-                } catch {
-                    print("Error loading heroes: \(error)")
+        guard let url = URL(string: "https://aezakmi52.github.io/superheroes-data/Hero.json") else {
+            print("Invalid URL")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            if let error = error {
+                print("Error loading heroes: \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+            
+            do {
+                let heroes = try JSONDecoder().decode([HeroModel].self, from: data)
+                self?.heroes = heroes
+                DispatchQueue.main.async {
+                    self?.presenter?.fetchHeroes(heroes)
+                    self?.createIdImageDict()
                 }
+            } catch {
+                print("Error decoding heroes: \(error)")
             }
         }
-        presenter?.fetchHeroes(heroes)
+        task.resume()
     }
     
     func toggleFavorite(id: Int, isFavorite: Bool) -> Void {
