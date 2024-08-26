@@ -18,6 +18,8 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     
     var images: [Int: UIImage] = [:]
     
+    var category: HeroModel.HeroCategory
+    
     var presenter: SuperheroesPresenterProtocol?
     
     var displayHeroes: [HeroModel] = []
@@ -29,9 +31,18 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
             let image = favoriteOnly ? UIImage(named: "star.fill") : UIImage(named: "star")
             navigationItem.rightBarButtonItem?.image = image
             
-            displayHeroes = favoriteOnly ? heroes.filter {$0.isFavorite == true} : heroes.filter { $0.category == .superheroes }
+            displayHeroes = favoriteOnly ? displayHeroes.filter {$0.isFavorite == true} : heroes.filter { $0.category == category}
             tableView.reloadData()
         }
+    }
+    
+    init(category: HeroModel.HeroCategory) {
+        self.category = category
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func getImages(_ images: [Int: UIImage]) {
@@ -41,12 +52,13 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     
     func showHeroes(_ heroes: [HeroModel]) {
         self.heroes = heroes
-        self.displayHeroes = heroes.filter { $0.category == .superheroes }
+        self.displayHeroes = heroes.filter { $0.category == category}
         tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTableView()
         presenter?.viewDidLoad()
         setupFavoriteFilterButton()
@@ -61,6 +73,7 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.barTintColor = .clear
+        navigationController?.navigationBar.isHidden = false
     }
     
     func setupTableView() {
@@ -72,7 +85,8 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.backgroundColor = .black
         tableView.rowHeight = 220
         view.addSubview(tableView)
-        title = HeroModel.HeroCategory.superheroes.rawValue.capitalized
+        title = category.rawValue.capitalized
+        
     }
     
     func setupFavoriteFilterButton() {

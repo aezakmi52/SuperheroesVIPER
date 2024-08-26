@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 protocol SuperheroesRouterProtocol: AnyObject {
-    static func createModule() -> UIViewController
+    static func createModule(for category: HeroModel.HeroCategory) -> UIViewController
     func navigateToSuperheroDetail(with hero: HeroModel, _ image: UIImage)
 }
 
 class SuperheroesRouter: SuperheroesRouterProtocol {
     var viewController: UIViewController?
     
-    static func createModule() -> UIViewController {
-        let viewController = SuperheroesViewController()
+    static func createModule(for category: HeroModel.HeroCategory) -> UIViewController {
+        let viewController = SuperheroesViewController(category: category)
         let presenter = SuperheroesPresenter()
         let interactor = SuperheroesInteractor()
         let router = SuperheroesRouter()
