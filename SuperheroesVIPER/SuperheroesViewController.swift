@@ -32,9 +32,19 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
             navigationItem.rightBarButtonItem?.image = image
             
             displayHeroes = favoriteOnly ? displayHeroes.filter {$0.isFavorite == true} : heroes.filter { $0.category == category}
+            updateEmptyStateLabelVisibility()
             tableView.reloadData()
         }
     }
+    
+    var emptyStateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No favorites"
+        label.textColor = .gray
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     init(category: HeroModel.HeroCategory) {
         self.category = category
@@ -52,7 +62,8 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     
     func showHeroes(_ heroes: [HeroModel]) {
         self.heroes = heroes
-        self.displayHeroes = heroes.filter { $0.category == category}
+        self.displayHeroes = favoriteOnly ? heroes.filter { $0.isFavorite == true} : heroes.filter { $0.category == category}
+        updateEmptyStateLabelVisibility()
         tableView.reloadData()
     }
     
@@ -62,6 +73,7 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
         setupTableView()
         presenter?.viewDidLoad()
         setupFavoriteFilterButton()
+        setupEmptyStateLabel()
         tableView.reloadData()
         
         let backButton = UIBarButtonItem()
@@ -88,6 +100,18 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
         title = category.rawValue.capitalized
         
     }
+    
+    func setupEmptyStateLabel() {
+        view.addSubview(emptyStateLabel)
+        NSLayoutConstraint.activate([
+            emptyStateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyStateLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    func updateEmptyStateLabelVisibility() {
+            emptyStateLabel.isHidden = !displayHeroes.isEmpty
+        }
     
     func setupFavoriteFilterButton() {
         let favoriteFilterButton = UIBarButtonItem(image: UIImage(named: "star"), style: .plain, target: self, action: #selector(toggleFavoriteFilter))

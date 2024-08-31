@@ -22,34 +22,38 @@ final class SuperheroesInteractor: SuperheroesInteractorInputProtocol {
     var presenter: SuperheroesInteractorOutputProtocol?
     
     func fetchHeroes() {
-        guard let url = URL(string: "https://aezakmi52.github.io/superheroes-data/Hero.json") else {
-            print("Invalid URL")
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            if let error = error {
-                print("Error loading heroes: \(error)")
+        if heroes.isEmpty {
+            guard let url = URL(string: "https://aezakmi52.github.io/superheroes-data/Hero.json") else {
+                print("Invalid URL")
                 return
             }
             
-            guard let data = data else {
-                print("No data received")
-                return
-            }
-            
-            do {
-                let heroes = try JSONDecoder().decode([HeroModel].self, from: data)
-                self?.heroes = heroes
-                DispatchQueue.main.async {
-                    self?.presenter?.fetchHeroes(heroes)
-                    self?.createIdImageDict()
+            let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+                if let error = error {
+                    print("Error loading heroes: \(error)")
+                    return
                 }
-            } catch {
-                print("Error decoding heroes: \(error)")
+                
+                guard let data = data else {
+                    print("No data received")
+                    return
+                }
+                
+                do {
+                    let heroes = try JSONDecoder().decode([HeroModel].self, from: data)
+                    self?.heroes = heroes
+                    DispatchQueue.main.async {
+                        self?.presenter?.fetchHeroes(heroes)
+                        self?.createIdImageDict()
+                    }
+                } catch {
+                    print("Error decoding heroes: \(error)")
+                }
             }
+            task.resume()
+        } else {
+            presenter?.fetchHeroes(heroes)
         }
-        task.resume()
     }
     
     func toggleFavorite(id: Int, isFavorite: Bool) -> Void {
