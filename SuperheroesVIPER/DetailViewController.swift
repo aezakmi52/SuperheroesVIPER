@@ -38,7 +38,7 @@ class DetailViewController: UIViewController, SuperheroDetailViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        presenter?.viewDidLoad()
+        presenter?.viewDidLoad(with: hero.category)
     }
     
     // MARK: - Setup Methods

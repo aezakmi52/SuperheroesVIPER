@@ -9,9 +9,10 @@ import Foundation
 import UIKit
 
 protocol SuperheroesPresenterProtocol: AnyObject {
-    func viewDidLoad()
+    func viewDidLoad(with category: HeroModel.HeroCategory)
     func didSelectHero(_ hero: HeroModel, _ image: UIImage)
     func didToggleFavorite(for hero: HeroModel)
+    func didToggleFavoriteFilter(heroes: [HeroModel], filterState: Bool)
 }
 
 protocol SuperheroesInteractorOutputProtocol: AnyObject {
@@ -28,8 +29,8 @@ class SuperheroesPresenter: SuperheroesPresenterProtocol {
     var interactor: SuperheroesInteractorInputProtocol?
     var router: SuperheroesRouterProtocol?
     
-    func viewDidLoad() {
-        interactor?.fetchHeroes()
+    func viewDidLoad(with category: HeroModel.HeroCategory) {
+        interactor?.fetchHeroes(with: category)
         interactor?.createIdImageDict()
     }
     
@@ -39,6 +40,10 @@ class SuperheroesPresenter: SuperheroesPresenterProtocol {
     
     func didToggleFavorite(for hero: HeroModel) {
         interactor?.toggleFavorite(id: hero.id, isFavorite: !hero.isFavorite)
+    }
+    
+    func didToggleFavoriteFilter(heroes: [HeroModel], filterState: Bool) {
+        interactor?.toggleFavoriteFilter(heroes: heroes, filterState: filterState)
     }
 }
 

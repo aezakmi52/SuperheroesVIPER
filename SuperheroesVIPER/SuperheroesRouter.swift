@@ -9,28 +9,11 @@ import Foundation
 import UIKit
 
 protocol SuperheroesRouterProtocol: AnyObject {
-    static func createModule(for category: HeroModel.HeroCategory) -> UIViewController
     func navigateToSuperheroDetail(with hero: HeroModel, _ image: UIImage)
 }
 
 class SuperheroesRouter: SuperheroesRouterProtocol {
     var viewController: UIViewController?
-    
-    static func createModule(for category: HeroModel.HeroCategory) -> UIViewController {
-        let viewController = SuperheroesViewController(category: category)
-        let presenter = SuperheroesPresenter()
-        let interactor = SuperheroesInteractor()
-        let router = SuperheroesRouter()
-        
-        viewController.presenter = presenter
-        presenter.view = viewController
-        presenter.interactor = interactor
-        presenter.router = router
-        interactor.presenter = presenter
-        router.viewController = viewController
-        
-        return viewController
-    }
     
     func navigateToSuperheroDetail(with hero: HeroModel, _ image: UIImage) {
         let detailViewController = DetailViewController()

@@ -10,9 +10,9 @@ import UIKit
 
 struct HeroModel: Codable, Hashable, Identifiable {
    
-    // MARK: - Properties
+   // MARK: - Properties
     
-    var id: Int
+   var id: Int
    
    var name:String
    var category: HeroCategory

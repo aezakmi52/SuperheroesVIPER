@@ -15,8 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         
-        let heroesVC = SuperheroesRouter.createModule(for: .superheroes)
-        let villainsVC = SuperheroesRouter.createModule(for: .supervillains)
+        let heroesVC = SuperheroesWireFrame.createModule(for: .superheroes)
+        let villainsVC = SuperheroesWireFrame.createModule(for: .supervillains)
         
         heroesVC.tabBarItem = UITabBarItem(title: "Superheroes", image: UIImage(named: "superheroes"), tag: 0)
         villainsVC.tabBarItem = UITabBarItem(title: "Supervillains", image: UIImage(named: "supervillains"), tag: 1)

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84E9FDEB2CA2CA8600BB191D /* SuperheroesVIPER.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84E9FDE92CA2CA8600BB191D /* SuperheroesVIPER.xcdatamodeld */; };
+		84E9FDF22CA2FF0C00BB191D /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9FDF02CA2FF0C00BB191D /* Hero.swift */; };
+		84E9FDF32CA2FF0C00BB191D /* Hero+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9FDF12CA2FF0C00BB191D /* Hero+CoreDataProperties.swift */; };
+		84E9FDF52CA318ED00BB191D /* SuperheroesWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9FDF42CA318ED00BB191D /* SuperheroesWireFrame.swift */; };
+		84E9FDF72CA4209500BB191D /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9FDF62CA4209500BB191D /* CoreDataStore.swift */; };
+		84E9FDF92CA8205E00BB191D /* SuperheroesLocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9FDF82CA8205E00BB191D /* SuperheroesLocalDataManager.swift */; };
+		84E9FDFB2CA8207A00BB191D /* SuperheroesRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E9FDFA2CA8207A00BB191D /* SuperheroesRemoteDataManager.swift */; };
 		84EEC9A12C74B4F700057206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEC9A02C74B4F700057206 /* AppDelegate.swift */; };
 		84EEC9A32C74B4F700057206 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEC9A22C74B4F700057206 /* SceneDelegate.swift */; };
 		84EEC9A52C74B4F700057206 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EEC9A42C74B4F700057206 /* ViewController.swift */; };
@@ -22,6 +29,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84E9FDEA2CA2CA8600BB191D /* SuperheroesVIPER.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SuperheroesVIPER.xcdatamodel; sourceTree = "<group>"; };
+		84E9FDF02CA2FF0C00BB191D /* Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
+		84E9FDF12CA2FF0C00BB191D /* Hero+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hero+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		84E9FDF42CA318ED00BB191D /* SuperheroesWireFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperheroesWireFrame.swift; sourceTree = "<group>"; };
+		84E9FDF62CA4209500BB191D /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
+		84E9FDF82CA8205E00BB191D /* SuperheroesLocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperheroesLocalDataManager.swift; sourceTree = "<group>"; };
+		84E9FDFA2CA8207A00BB191D /* SuperheroesRemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperheroesRemoteDataManager.swift; sourceTree = "<group>"; };
 		84EEC99D2C74B4F600057206 /* SuperheroesVIPER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperheroesVIPER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EEC9A02C74B4F700057206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84EEC9A22C74B4F700057206 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +82,8 @@
 		84EEC99F2C74B4F600057206 /* SuperheroesVIPER */ = {
 			isa = PBXGroup;
 			children = (
+				84E9FDF02CA2FF0C00BB191D /* Hero.swift */,
+				84E9FDF12CA2FF0C00BB191D /* Hero+CoreDataProperties.swift */,
 				84EEC9C22C75C84100057206 /* SuperheroesPresenter.swift */,
 				84EEC9C02C75037400057206 /* SuperheroesInteractor.swift */,
 				84EEC9B72C74C55800057206 /* Resources */,
@@ -81,6 +97,11 @@
 				84EEC9C62C75E8B700057206 /* SuperheroesViewController.swift */,
 				84EEC9C82C760B0A00057206 /* HeroTableViewCell.swift */,
 				84EEC9CA2C760B8800057206 /* DetailViewController.swift */,
+				84E9FDE92CA2CA8600BB191D /* SuperheroesVIPER.xcdatamodeld */,
+				84E9FDF42CA318ED00BB191D /* SuperheroesWireFrame.swift */,
+				84E9FDF62CA4209500BB191D /* CoreDataStore.swift */,
+				84E9FDF82CA8205E00BB191D /* SuperheroesLocalDataManager.swift */,
+				84E9FDFA2CA8207A00BB191D /* SuperheroesRemoteDataManager.swift */,
 			);
 			path = SuperheroesVIPER;
 			sourceTree = "<group>";
@@ -166,13 +187,20 @@
 				84EEC9C52C75E5DD00057206 /* SuperheroesRouter.swift in Sources */,
 				84EEC9C12C75037400057206 /* SuperheroesInteractor.swift in Sources */,
 				84EEC9A52C74B4F700057206 /* ViewController.swift in Sources */,
+				84E9FDF92CA8205E00BB191D /* SuperheroesLocalDataManager.swift in Sources */,
+				84E9FDF32CA2FF0C00BB191D /* Hero+CoreDataProperties.swift in Sources */,
 				84EEC9C32C75C84100057206 /* SuperheroesPresenter.swift in Sources */,
 				84EEC9C92C760B0A00057206 /* HeroTableViewCell.swift in Sources */,
 				84EEC9A12C74B4F700057206 /* AppDelegate.swift in Sources */,
+				84E9FDF52CA318ED00BB191D /* SuperheroesWireFrame.swift in Sources */,
 				84EEC9A32C74B4F700057206 /* SceneDelegate.swift in Sources */,
+				84E9FDF72CA4209500BB191D /* CoreDataStore.swift in Sources */,
 				84EEC9CB2C760B8800057206 /* DetailViewController.swift in Sources */,
 				84EEC9C72C75E8B700057206 /* SuperheroesViewController.swift in Sources */,
+				84E9FDF22CA2FF0C00BB191D /* Hero.swift in Sources */,
 				84EEC9BC2C74C76B00057206 /* SuperheroesEntity.swift in Sources */,
+				84E9FDFB2CA8207A00BB191D /* SuperheroesRemoteDataManager.swift in Sources */,
+				84E9FDEB2CA2CA8600BB191D /* SuperheroesVIPER.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +397,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84E9FDE92CA2CA8600BB191D /* SuperheroesVIPER.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84E9FDEA2CA2CA8600BB191D /* SuperheroesVIPER.xcdatamodel */,
+			);
+			currentVersion = 84E9FDEA2CA2CA8600BB191D /* SuperheroesVIPER.xcdatamodel */;
+			path = SuperheroesVIPER.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 84EEC9952C74B4F600057206 /* Project object */;
 }

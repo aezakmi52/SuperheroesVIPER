@@ -10,9 +10,11 @@ import UIKit
 
 
 protocol SuperheroesInteractorInputProtocol {
-    func fetchHeroes()
+    func fetchHeroes(with category: HeroModel.HeroCategory)
     func createIdImageDict()
     func toggleFavorite(id: Int, isFavorite: Bool)
+    func toggleFavoriteFilter(heroes: [HeroModel], filterState: Bool)
+    var heroes: [HeroModel] { get set }
 }
 
 final class SuperheroesInteractor: SuperheroesInteractorInputProtocol {
@@ -20,39 +22,13 @@ final class SuperheroesInteractor: SuperheroesInteractorInputProtocol {
     var images: [Int: UIImage] = [:]
     
     var presenter: SuperheroesInteractorOutputProtocol?
+    var remoteDataManager: SuperheroesRemoteDataManagerInputProtocol?
     
-    func fetchHeroes() {
+    func fetchHeroes(with category: HeroModel.HeroCategory) {
         if heroes.isEmpty {
-            guard let url = URL(string: "https://aezakmi52.github.io/superheroes-data/Hero.json") else {
-                print("Invalid URL")
-                return
-            }
-            
-            let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-                if let error = error {
-                    print("Error loading heroes: \(error)")
-                    return
-                }
-                
-                guard let data = data else {
-                    print("No data received")
-                    return
-                }
-                
-                do {
-                    let heroes = try JSONDecoder().decode([HeroModel].self, from: data)
-                    self?.heroes = heroes
-                    DispatchQueue.main.async {
-                        self?.presenter?.fetchHeroes(heroes)
-                        self?.createIdImageDict()
-                    }
-                } catch {
-                    print("Error decoding heroes: \(error)")
-                }
-            }
-            task.resume()
+            remoteDataManager?.loadHeroFromServer(with: category)
         } else {
-            presenter?.fetchHeroes(heroes)
+            presenter?.fetchHeroes(heroes.filter { $0.category == category })
         }
     }
     
@@ -81,7 +57,7 @@ final class SuperheroesInteractor: SuperheroesInteractorInputProtocol {
             if let url = URL(string: hero.imageURL) {
                 dispatchGroup.enter()
                 
-                loadImageAsync(from: url) { [weak self] image in
+                remoteDataManager?.loadImageAsync(from: url) { [weak self] image in
                     self?.images[hero.id] = image
                     dispatchGroup.leave()
                 }
@@ -93,21 +69,12 @@ final class SuperheroesInteractor: SuperheroesInteractorInputProtocol {
         }
     }
     
-    func loadImageAsync(from url: URL, completion: @escaping (UIImage?) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error loading image: \(error)")
-                completion(nil)
-                return
-            }
-            
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    completion(image)
-                }
-            } else {
-                completion(nil)
-            }
-        }.resume()
+    func toggleFavoriteFilter(heroes: [HeroModel], filterState: Bool) {
+        if filterState {
+            let displayHeroes = heroes.filter { $0.isFavorite == true }
+            presenter?.fetchHeroes(displayHeroes)
+        } else {
+            presenter?.fetchHeroes(self.heroes)
+        }
     }
 }

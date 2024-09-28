@@ -14,6 +14,7 @@ protocol SuperheroesViewProtocol: AnyObject {
 }
 
 class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SuperheroesViewProtocol {
+    
     var heroes: [HeroModel] = []
     
     var images: [Int: UIImage] = [:]
@@ -22,17 +23,12 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     
     var presenter: SuperheroesPresenterProtocol?
     
-    var displayHeroes: [HeroModel] = []
-    
     var tableView = UITableView()
     
     var favoriteOnly = false {
         didSet {
             let image = favoriteOnly ? UIImage(named: "star.fill") : UIImage(named: "star")
             navigationItem.rightBarButtonItem?.image = image
-            
-            displayHeroes = favoriteOnly ? displayHeroes.filter {$0.isFavorite == true} : heroes.filter { $0.category == category}
-            updateEmptyStateLabelVisibility()
             tableView.reloadData()
         }
     }
@@ -62,7 +58,6 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     
     func showHeroes(_ heroes: [HeroModel]) {
         self.heroes = heroes
-        self.displayHeroes = favoriteOnly ? heroes.filter { $0.isFavorite == true} : heroes.filter { $0.category == category}
         updateEmptyStateLabelVisibility()
         tableView.reloadData()
     }
@@ -71,7 +66,7 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         setupTableView()
-        presenter?.viewDidLoad()
+        presenter?.viewDidLoad(with: category)
         setupFavoriteFilterButton()
         setupEmptyStateLabel()
         tableView.reloadData()
@@ -110,8 +105,8 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func updateEmptyStateLabelVisibility() {
-            emptyStateLabel.isHidden = !displayHeroes.isEmpty
-        }
+        emptyStateLabel.isHidden = !heroes.isEmpty
+    }
     
     func setupFavoriteFilterButton() {
         let favoriteFilterButton = UIBarButtonItem(image: UIImage(named: "star"), style: .plain, target: self, action: #selector(toggleFavoriteFilter))
@@ -121,16 +116,17 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc func toggleFavoriteFilter() {
         favoriteOnly.toggle()
+        presenter?.didToggleFavoriteFilter(heroes: heroes, filterState: favoriteOnly)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return displayHeroes.count
+        return heroes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HeroCell", for: indexPath) as! HeroTableViewCell
         cell.selectionStyle = .none
-        let hero = displayHeroes[indexPath.row]
+        let hero = heroes[indexPath.row]
         let image = images[hero.id]
         cell.configure(with: hero, image: image)
         cell.favoriteButtonAction = { [weak self] in
@@ -140,7 +136,7 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let hero = displayHeroes[indexPath.row]
+        let hero = heroes[indexPath.row]
         let image = images[hero.id] ?? UIImage()
         presenter?.didSelectHero(hero, image)
     }
