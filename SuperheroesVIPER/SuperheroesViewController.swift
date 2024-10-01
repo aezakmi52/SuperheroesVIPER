@@ -116,7 +116,7 @@ class SuperheroesViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc func toggleFavoriteFilter() {
         favoriteOnly.toggle()
-        presenter?.didToggleFavoriteFilter(heroes: heroes, filterState: favoriteOnly)
+        presenter?.didToggleFavoriteFilter(heroes: heroes, filterState: favoriteOnly, category: category)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

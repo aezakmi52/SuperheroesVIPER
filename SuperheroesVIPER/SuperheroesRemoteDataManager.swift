@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol SuperheroesRemoteDataManagerInputProtocol {
-    func loadHeroFromServer(with category: HeroModel.HeroCategory)
+    func loadHeroFromServer(with category: HeroModel.HeroCategory, completion: @escaping ([HeroModel]) -> Void)
     func loadImageAsync(from url: URL, completion: @escaping (UIImage?) -> Void)
 }
 
@@ -18,14 +18,14 @@ class SuperheroesRemoteDataManager: SuperheroesRemoteDataManagerInputProtocol {
     
     var interactor: SuperheroesInteractorInputProtocol?
     
-    func loadHeroFromServer(with category: HeroModel.HeroCategory) {
+    func loadHeroFromServer(with category: HeroModel.HeroCategory, completion: @escaping ([HeroModel]) -> Void) {
         
         guard let url = URL(string: "https://aezakmi52.github.io/superheroes-data/Hero.json") else {
             print("Invalid URL")
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error loading heroes: \(error)")
                 return
@@ -38,15 +38,15 @@ class SuperheroesRemoteDataManager: SuperheroesRemoteDataManagerInputProtocol {
             
             do {
                 let heroes = try JSONDecoder().decode([HeroModel].self, from: data)
-                self?.interactor?.heroes = heroes
                 DispatchQueue.main.async {
-                    self?.interactor?.fetchHeroes(with: category)
-                    self?.interactor?.createIdImageDict()
+                    completion(heroes)
+                    self.interactor?.createIdImageDict()
                 }
             } catch {
                 print("Error decoding heroes: \(error)")
             }
         }
+        
         task.resume()
     }
     

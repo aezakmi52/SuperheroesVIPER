@@ -21,6 +21,7 @@ class SuperheroesWireFrame: SuperheroesWireFrameProtocol {
         let presenter = SuperheroesPresenter()
         let router = SuperheroesRouter()
         let remoteDataManager = SuperheroesRemoteDataManager()
+        let localDataManager = SuperheroesLocalDataManager()
         
         superheroesViewController.presenter = presenter
         presenter.view = superheroesViewController
@@ -30,6 +31,7 @@ class SuperheroesWireFrame: SuperheroesWireFrameProtocol {
         router.viewController = superheroesViewController
         remoteDataManager.interactor = interactor
         interactor.remoteDataManager = remoteDataManager
+        interactor.localDataManager = localDataManager
         
         return superheroesViewController
     }

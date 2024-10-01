@@ -29,8 +29,8 @@ extension Hero {
     @NSManaged public var protection: Int16
     @NSManaged public var red: Double
     @NSManaged public var green: Double
-    @NSManaged public var blue: Int16
-    @NSManaged public var alpha: Int16
+    @NSManaged public var blue: Double
+    @NSManaged public var alpha: Double
 
 }
 

@@ -12,7 +12,7 @@ protocol SuperheroesPresenterProtocol: AnyObject {
     func viewDidLoad(with category: HeroModel.HeroCategory)
     func didSelectHero(_ hero: HeroModel, _ image: UIImage)
     func didToggleFavorite(for hero: HeroModel)
-    func didToggleFavoriteFilter(heroes: [HeroModel], filterState: Bool)
+    func didToggleFavoriteFilter(heroes: [HeroModel], filterState: Bool, category: HeroModel.HeroCategory)
 }
 
 protocol SuperheroesInteractorOutputProtocol: AnyObject {
@@ -39,11 +39,11 @@ class SuperheroesPresenter: SuperheroesPresenterProtocol {
     }
     
     func didToggleFavorite(for hero: HeroModel) {
-        interactor?.toggleFavorite(id: hero.id, isFavorite: !hero.isFavorite)
+        interactor?.toggleFavorite(id: hero.id, isFavorite: !hero.isFavorite, category: hero.category)
     }
     
-    func didToggleFavoriteFilter(heroes: [HeroModel], filterState: Bool) {
-        interactor?.toggleFavoriteFilter(heroes: heroes, filterState: filterState)
+    func didToggleFavoriteFilter(heroes: [HeroModel], filterState: Bool, category: HeroModel.HeroCategory) {
+        interactor?.toggleFavoriteFilter(heroes: heroes, filterState: filterState, category: category)
     }
 }
 
